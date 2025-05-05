@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LD1FINALS_2D_SALES</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('https://static.vecteezy.com/system/resources/thumbnails/042/598/414/small_2x/ai-generated-glass-of-iced-coffee-on-the-table-with-nature-background-free-photo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: rgba(51, 51, 51, 0.9);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .logo h1 {
+            margin: 0;
+            font-size: 2.2em;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Add shadow for visibility */
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin: 80px auto;
+            background-color: rgba(255, 255, 255, 0.85); /* Adjusted opacity */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            border: 2px solid black; /* Added black border */
+        }
+
+        .container h2 {
+            color: #333;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Added shadow for readability */
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border: 2px solid black; /* Added black border */
+            border-radius: 8px;
+            font-size: 1em;
+            transition: 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #e67e22;
+            box-shadow: 0 0 5px rgba(230, 126, 34, 0.6);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background-color: #cf711c;
+        }
+
+        #message {
+            margin-top: 15px;
+            color: red;
+            font-size: 0.95em;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: rgba(51, 51, 51, 0.9);
+            color: white;
+            text-align: center;
+            padding: 12px 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 25px;
+                margin: 60px 20px;
+            }
+
+            .logo h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>ICETEA COFFEE HOUSE</h1>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Log In</h2>
+            <input type="text" id="username" placeholder="Username" autocomplete="off" required>
+            <input type="password" id="password" placeholder="Password" autocomplete="off" required>
+            <button onclick="validateLogin()">Login</button>
+            <p id="message"></p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; ICETEA COFFEE HOUSE. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let attempts = 0;
+        let lockout = false;
+        const correctUsername = "admin123";
+        const correctPassword = "admin123";
+
+        function validateLogin() {
+            if (lockout) return;
+
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value;
+            const message = document.getElementById("message");
+
+            if (username === correctUsername && password === correctPassword) {
+                message.style.color = "green";
+                message.innerText = "Login successful!";
+                setTimeout(() => {
+                    window.location.href = "homepage.html";
+                }, 1000);
+            } else {
+                attempts++;
+                if (attempts >= 2) {
+                    lockout = true;
+                    message.innerText = "Too many failed attempts. Please wait 10 seconds.";
+                    setTimeout(() => {
+                        attempts = 0;
+                        lockout = false;
+                        message.innerText = "You can try again now.";
+                        document.getElementById("password").value = "";
+                    }, 10000);
+                } else {
+                    message.innerText = "Incorrect username or password. Try again.";
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
